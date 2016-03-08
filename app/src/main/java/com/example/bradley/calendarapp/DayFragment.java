@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
@@ -24,14 +25,21 @@ public class DayFragment extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String DATE = "dateParam";
-
-    private String mParamDate;
-    private TextView d;
+    private static final String TITLE = "titleParam";
+    private static final String TIME = "timeParam";
+    private static final String WHAT = "whatParam";
 
     private OnFragmentInteractionListener mListener;
 
+    private String mParamDate;
+    private String mParamTitle;
+    private String mParamTime;
+    private String mParamWhat;
 
+    private TextView d;
+    private ListView listView;
     private Button calendar;
+    private Button edit;
     public DayFragment() {
         // Required empty public constructor
     }
@@ -44,10 +52,13 @@ public class DayFragment extends Fragment {
      * @return A new instance of fragment DayFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DayFragment newInstance(String param1) {
+    public static DayFragment newInstance(String param1, String param2, String param3, String param4) {
         DayFragment fragment = new DayFragment();
         Bundle args = new Bundle();
         args.putString(DATE, param1);
+        args.putString(TITLE, param2);
+        args.putString(TIME, param2);
+        args.putString(WHAT, param4);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,6 +68,9 @@ public class DayFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParamDate = getArguments().getString(DATE);
+            mParamTitle = getArguments().getString(TITLE);
+            mParamTime = getArguments().getString(TIME);
+            mParamWhat = getArguments().getString(WHAT);
         }
     }
 
@@ -68,7 +82,21 @@ public class DayFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_day, container, false);
         d = (TextView) view.findViewById(R.id.Date);
         d.setText(mParamDate);
+        edit = (Button) view.findViewById(R.id.Edit);
         calendar = (Button) view.findViewById(R.id.Back);
+        listView = (ListView)view.findViewById((R.id.LISTVIEW));
+        //TODO handle the whats possible editing a file
+        /*if(mParamWhat.equals("add")){
+
+        }
+        else if(mParamWhat.equals("delete")){
+
+        }
+        else if(mParamWhat.equals("edit")){
+
+        }
+        */
+        //TODO fill in listview using file
         return view;
     }
 
@@ -82,7 +110,17 @@ public class DayFragment extends Fragment {
                 getFragmentManager()
                         .beginTransaction()
                         .addToBackStack(null)
-                        .replace(R.id.main_fragment_container, CalendarFragment.newInstance("string of date", "take out this param"))
+                        .replace(R.id.main_fragment_container, CalendarFragment.newInstance(mParamDate, "take out this param"))
+                        .commit();
+            }
+        });
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.main_fragment_container, EditFragment.newInstance(mParamDate, "take out this param"))
                         .commit();
             }
         });

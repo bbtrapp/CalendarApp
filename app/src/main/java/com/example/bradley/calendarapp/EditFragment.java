@@ -8,35 +8,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.EditText;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CalendarFragment.OnFragmentInteractionListener} interface
+ * {@link EditFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CalendarFragment#newInstance} factory method to
+ * Use the {@link EditFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CalendarFragment extends Fragment {
+public class EditFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private Button viewb;
-    private DatePicker dp;
-    //year,month,day
-    private int[] datePicked;
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    private Button add;
+    private Button edit;
+    private Button delete;
+    private EditText title;
+    private EditText time;
+
     private OnFragmentInteractionListener mListener;
 
-    public CalendarFragment() {
+    public EditFragment() {
         // Required empty public constructor
     }
 
@@ -46,11 +47,11 @@ public class CalendarFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CalendarFragment.
+     * @return A new instance of fragment EditFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CalendarFragment newInstance(String param1, String param2) {
-        CalendarFragment fragment = new CalendarFragment();
+    public static EditFragment newInstance(String param1, String param2) {
+        EditFragment fragment = new EditFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -71,38 +72,58 @@ public class CalendarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
-        viewb = (Button)view.findViewById(R.id.view);
-        dp = (DatePicker)view.findViewById(R.id.DP);
-        //if(ARG_PARAM1 != null) {
-        //    String tmp[] = ARG_PARAM1.split(" - ");
-        //    dp.updateDate(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]), Integer.parseInt(tmp[2]));
-        //}
-        return view;
+        View view = inflater.inflate(R.layout.fragment_edit, container, false);
+        add = (Button)view.findViewById(R.id.ADD);
+        edit = (Button)view.findViewById(R.id.EDIT);
+        delete = (Button)view.findViewById(R.id.DELETE);
+        title = (EditText)view.findViewById(R.id.TITLE);
+        time = (EditText)view.findViewById(R.id.TIME);
 
+        return view;
     }
 
-
-    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         //question answer
-        viewb.setOnClickListener(new View.OnClickListener() {
+        edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String d = dp.getYear() + " - " + dp.getMonth() + " - " + dp.getDayOfMonth();
                 getFragmentManager()
                         .beginTransaction()
                         .addToBackStack(null)
-                        .replace(R.id.main_fragment_container, DayFragment.newInstance(d, null, null, null))
+                        .replace(R.id.main_fragment_container, DayFragment.newInstance(mParam1, "string of title", " and time", "edit"))
+                        .commit();
+            }
+        });
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.main_fragment_container, DayFragment.newInstance(mParam1, "take out", " this param", "add"))
+                        .commit();
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.main_fragment_container, DayFragment.newInstance(mParam1, "take out", " this param", "delete"))
                         .commit();
             }
         });
     }
 
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
 
     @Override
     public void onAttach(Context context) {

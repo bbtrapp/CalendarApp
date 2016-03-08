@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class CalendarActivity extends AppCompatActivity implements
-    CalendarFragment.OnFragmentInteractionListener, DayFragment.OnFragmentInteractionListener{
+    CalendarFragment.OnFragmentInteractionListener, DayFragment.OnFragmentInteractionListener, EditFragment.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
