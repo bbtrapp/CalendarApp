@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -26,6 +28,7 @@ public class CalendarFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private Button edit;
+    private DatePicker dp;
     //year,month,day
     private int[] datePicked;
 
@@ -72,6 +75,7 @@ public class CalendarFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
         edit = (Button)view.findViewById(R.id.edit);
+        dp = (DatePicker)view.findViewById(R.id.DP);
 
 
         return view;
@@ -83,14 +87,17 @@ public class CalendarFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
         //question answer
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String d = dp.getYear() + " - " + dp.getMonth() + " - " + dp.getDayOfMonth();
                 getFragmentManager()
                         .beginTransaction()
                         .addToBackStack(null)
-                        .replace(R.id.main_fragment_container, DayFragment.newInstance("string of date"))
+                        .replace(R.id.main_fragment_container, DayFragment.newInstance(d))
                         .commit();
             }
         });

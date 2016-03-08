@@ -13,8 +13,9 @@
         android:text="DATE"
         android:id="@+id/Date"
         android:textSize="30dp"
-        android:layout_alignBottom="@+id/Back"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/Back"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="54dp" />
 
     <Button
         android:layout_width="wrap_content"
