@@ -8,34 +8,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CalendarFragment.OnFragmentInteractionListener} interface
+ * {@link DayFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CalendarFragment#newInstance} factory method to
+ * Use the {@link DayFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CalendarFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
+public class DayFragment extends Fragment {
+
+
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String DATE = "dateParam";
 
-    private Button edit;
-    //year,month,day
-    private int[] datePicked;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String mParamDate;
 
     private OnFragmentInteractionListener mListener;
 
-    public CalendarFragment() {
+
+    private Button calendar;
+    public DayFragment() {
         // Required empty public constructor
     }
 
@@ -44,15 +39,13 @@ public class CalendarFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CalendarFragment.
+     * @return A new instance of fragment DayFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CalendarFragment newInstance(String param1, String param2) {
-        CalendarFragment fragment = new CalendarFragment();
+    public static DayFragment newInstance(String param1) {
+        DayFragment fragment = new DayFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(DATE, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,8 +54,7 @@ public class CalendarFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParamDate = getArguments().getString(DATE);
         }
     }
 
@@ -70,32 +62,28 @@ public class CalendarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_calendar, container, false);
-        edit = (Button)view.findViewById(R.id.edit);
 
+        View view = inflater.inflate(R.layout.fragment_day, container, false);
 
+        calendar = (Button) view.findViewById(R.id.Back);
         return view;
-
     }
 
-
-    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         //question answer
-        edit.setOnClickListener(new View.OnClickListener() {
+        calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getFragmentManager()
                         .beginTransaction()
                         .addToBackStack(null)
-                        .replace(R.id.main_fragment_container, DayFragment.newInstance("string of date"))
+                        .replace(R.id.main_fragment_container, CalendarFragment.newInstance("string of date", "take out this param"))
                         .commit();
             }
         });
     }
-
 
     @Override
     public void onAttach(Context context) {
