@@ -72,4 +72,13 @@
         android:layout_below="@+id/TIME"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="To delete use exact title of event that you want to delete"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/TITLE"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

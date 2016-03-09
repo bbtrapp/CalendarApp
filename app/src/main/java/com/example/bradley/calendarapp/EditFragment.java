@@ -34,6 +34,8 @@ public class EditFragment extends Fragment {
     private Button delete;
     private EditText title;
     private EditText time;
+    private String eventTitle;
+    private String eventTime;
 
     private OnFragmentInteractionListener mListener;
 
@@ -89,30 +91,36 @@ public class EditFragment extends Fragment {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                eventTitle = title.getText().toString().trim();
+                eventTime = time.getText().toString().trim();
                 getFragmentManager()
                         .beginTransaction()
                         .addToBackStack(null)
-                        .replace(R.id.main_fragment_container, DayFragment.newInstance(mParam1, "string of title", " and time", "edit"))
+                        .replace(R.id.main_fragment_container, DayFragment.newInstance(mParam1, eventTitle, eventTime, "edit"))
                         .commit();
             }
         });
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                eventTitle = title.getText().toString().trim();
+                eventTime = time.getText().toString().trim();
                 getFragmentManager()
                         .beginTransaction()
                         .addToBackStack(null)
-                        .replace(R.id.main_fragment_container, DayFragment.newInstance(mParam1, "take out", " this param", "add"))
+                        .replace(R.id.main_fragment_container, DayFragment.newInstance(mParam1, eventTitle, eventTime, "add"))
                         .commit();
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                eventTitle = title.getText().toString().trim();
+                eventTime = time.getText().toString().trim();
                 getFragmentManager()
                         .beginTransaction()
                         .addToBackStack(null)
-                        .replace(R.id.main_fragment_container, DayFragment.newInstance(mParam1, "take out", " this param", "delete"))
+                        .replace(R.id.main_fragment_container, DayFragment.newInstance(mParam1, eventTitle, eventTime, "delete"))
                         .commit();
             }
         });

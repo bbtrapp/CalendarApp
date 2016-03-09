@@ -4,12 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import java.io.*;
+
 
 
 /**
@@ -20,7 +23,7 @@ import android.widget.TextView;
  * Use the {@link DayFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DayFragment extends Fragment {
+public class DayFragment extends Fragment{
 
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,6 +38,9 @@ public class DayFragment extends Fragment {
     private String mParamTitle;
     private String mParamTime;
     private String mParamWhat;
+    private String FILENAME = "calFile";
+    FileOutputStream fOS;
+
 
     private TextView d;
     private ListView listView;
@@ -78,6 +84,30 @@ public class DayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+    //TODO file stuff
+        String line = null;
+        try{
+            FileReader fileReader = new FileReader(FILENAME);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            while((line = bufferedReader.readLine()) != null){
+                //read in events
+            }
+            bufferedReader.close();
+        }
+        catch(FileNotFoundException ex) {
+            System.out.println(
+                    "Unable to open file '" +
+                            FILENAME + "'");
+        }
+        catch(IOException ex) {
+            System.out.println(
+                    "Error reading file '"
+                            + FILENAME + "'");
+            // Or we could just do this:
+            // ex.printStackTrace();
+        }
+
+
 
         View view = inflater.inflate(R.layout.fragment_day, container, false);
         d = (TextView) view.findViewById(R.id.Date);
@@ -157,4 +187,5 @@ public class DayFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }
