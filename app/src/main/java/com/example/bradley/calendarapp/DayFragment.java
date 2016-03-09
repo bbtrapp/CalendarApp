@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.io.*;
-
+import java.util.ArrayList;
 
 
 /**
@@ -39,6 +39,8 @@ public class DayFragment extends Fragment{
     private String mParamTime;
     private String mParamWhat;
     private String FILENAME = "calFile";
+    private ArrayList<Date> aList = new ArrayList<>();
+
     FileOutputStream fOS;
 
 
